@@ -43,9 +43,9 @@
 <section class="hero" id="hero" aria-label="メインビジュアル" data-header-theme="dark">
 
   <div class="hero__slides">
-    <div class="hero__slide is-active" data-slide="1" style="background-image:url('assets/images/hero-bg-crop1.webp');"></div>
-    <div class="hero__slide" data-slide="2" style="background-image:url('assets/images/hero-bg-crop3.webp');"></div>
-    <div class="hero__slide" data-slide="3" style="background-image:url('assets/images/hero-bg-crop.webp');"></div>
+    <div class="hero__slide is-active" data-slide="1"></div>
+    <div class="hero__slide" data-slide="2"></div>
+    <div class="hero__slide" data-slide="3"></div>
   </div>
 
   <div class="hero__mobile-bg" aria-hidden="true"></div>
@@ -65,7 +65,6 @@
         <a href="#gallery">gallery</a>
       </nav>
 
-      <img class="header-dog" src="assets/images/header-dog.webp" alt="">
     </div>
 
     <button type="button" class="hero__mobile-menu" id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="メニューを開く">
@@ -137,7 +136,7 @@
 
   <section id="about" class="about-section" data-header-theme="dark">
     <picture>
-      <source media="(min-width: 721px)" srcset="assets/images/about-widecloud.webp">
+      <source media="(min-width: 721px)" srcset="assets/images/cloud.webp">
       <img class="about-cloud" src="assets/images/about-cloud.webp" alt="">
     </picture>
     <div class="about-inner">
@@ -668,12 +667,27 @@
 </button>
 
 <div class="photo-modal" id="photo-modal" aria-hidden="true">
-  <div class="photo-modal__backdrop" data-modal-close></div>
+  <div class="photo-modal__backdrop"></div>
   <div class="photo-modal__panel" role="dialog" aria-modal="true" aria-label="写真の詳細">
     <button type="button" class="photo-modal__close" data-modal-close aria-label="閉じる">
       <img src="assets/icons/modal-close.svg" alt="">
     </button>
-    <img class="photo-modal__image" src="" alt="">
+
+    <button type="button" class="photo-modal__nav photo-modal__nav--prev" data-modal-prev aria-label="前の写真">
+      <img src="assets/icons/chevron_left.svg" alt="">
+    </button>
+    <button type="button" class="photo-modal__nav photo-modal__nav--next" data-modal-next aria-label="次の写真">
+      <img src="assets/icons/chevron_right.svg" alt="">
+    </button>
+
+    <div class="photo-modal__stage">
+      <div class="photo-modal__track">
+        <div class="photo-modal__slide photo-modal__slide--current">
+          <img class="photo-modal__image photo-modal__image--main" src="" alt="">
+        </div>
+      </div>
+    </div>
+
     <div class="photo-modal__details">
       <p class="photo-modal__title" hidden></p>
       <p class="photo-modal__location" hidden>
@@ -685,6 +699,10 @@
   </div>
 </div>
 
+<div class="custom-cursor" id="custom-cursor" aria-hidden="true">
+  <span class="custom-cursor__text">VIEW</span>
+</div>
+
 <script src="assets/js/main.js"></script>
 <script src="assets/js/hero-slideshow.js"></script>
 <script src="assets/js/page-top-theme.js"></script>
@@ -694,5 +712,6 @@
 <script src="assets/js/works-pin.js"></script>
 <script src="assets/js/gallery-modal.js"></script>
 <script src="assets/js/mobile-menu.js"></script>
+<script src="assets/js/custom-cursor.js"></script>
 </body>
 </html>

@@ -9,18 +9,16 @@
   if (slides.length < 2) return;
 
   var mq = window.matchMedia("(min-width: 641px)");
-  var LOCK_MS = 700; 
-  var GESTURE_GAP_MS = 200; 
+  var LOCK_MS = 700;
+  var WHEEL_THRESHOLD = 60;
+  var TOP_TOLERANCE = 2;
 
   var currentIndex = 0;
   var lastIndex = slides.length - 1;
 
-  var isTransitionLocked = false;
-  var isGestureActive = false;
-  var actedThisGesture = false;
-  var canExitHero = true;
-
-  var gestureTimer = null;
+  var lockedUntil = 0;
+  var wheelTotal = 0;
+  var lastWheelTime = 0;
 
   function setActive(index) {
     if (index === currentIndex) return;
@@ -41,75 +39,90 @@
     });
   }
 
-  function onGestureEnd() {
-    isGestureActive = false;
-    if (currentIndex === lastIndex && !canExitHero) {
-      canExitHero = true;
-    }
+  function selectSlide(index) {
+    setActive(index);
+    wheelTotal = 0;
+    lockedUntil = performance.now() + LOCK_MS;
   }
 
-  function registerGestureActivity() {
-    if (!isGestureActive) {
-      actedThisGesture = false;
-    }
-    isGestureActive = true;
-    if (gestureTimer) {
-      window.clearTimeout(gestureTimer);
-    }
-    gestureTimer = window.setTimeout(onGestureEnd, GESTURE_GAP_MS);
-  }
-
-  function advance(delta) {
-    actedThisGesture = true;
-    setActive(currentIndex + delta);
-
-    isTransitionLocked = true;
-    window.setTimeout(function () {
-      isTransitionLocked = false;
-    }, LOCK_MS);
-
-    if (currentIndex === lastIndex) {
-      canExitHero = false;
-    }
+  function shouldHandle(direction, now) {
+    if (!mq.matches || window.scrollY > TOP_TOLERANCE) return false;
+    if (document.querySelector(".photo-modal.is-open, .mobile-menu.is-open")) return false;
+    if (direction < 0 && currentIndex === 0) return false;
+    return direction < 0 || currentIndex < lastIndex || now < lockedUntil;
   }
 
   function handleWheel(e) {
-    if (!mq.matches) return;
-    if (window.scrollY > 0) return;
+    if (e.ctrlKey || e.metaKey || e.shiftKey || !e.cancelable) return;
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
 
-    registerGestureActivity();
+    var now = performance.now();
+    var direction = e.deltaY > 0 ? 1 : -1;
+    if (!shouldHandle(direction, now)) return;
 
-    if (e.deltaY > 0) {
-      if (currentIndex === lastIndex) {
-        if (canExitHero) {
-          return;
-        }
-        e.preventDefault();
-        return;
-      }
+    e.preventDefault();
+    if (window.scrollY !== 0) window.scrollTo(0, 0);
+    if (now < lockedUntil) return;
 
-      e.preventDefault();
-      if (isTransitionLocked || actedThisGesture) return;
-      advance(1);
-    } else if (e.deltaY < 0) {
-      if (currentIndex === 0) {
-        return;
-      }
+    var unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1;
+    var delta = e.deltaY * unit;
+    if (now - lastWheelTime > 250 || wheelTotal * delta < 0) wheelTotal = 0;
+    lastWheelTime = now;
+    wheelTotal += delta;
 
-      e.preventDefault();
-      if (isTransitionLocked || actedThisGesture) return;
-      advance(-1);
+    if (Math.abs(wheelTotal) >= WHEEL_THRESHOLD) {
+      selectSlide(currentIndex + direction);
     }
   }
 
   window.addEventListener("wheel", handleWheel, { passive: false });
+
+  window.addEventListener("keydown", function (e) {
+    if (e.defaultPrevented || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.target.closest("a, button, input, textarea, select, [contenteditable]")) return;
+
+    var direction;
+    if (e.key === "ArrowDown" || e.key === "PageDown" || (e.key === " " && !e.shiftKey)) {
+      direction = 1;
+    } else if (e.key === "ArrowUp" || e.key === "PageUp" || (e.key === " " && e.shiftKey)) {
+      direction = -1;
+    } else {
+      return;
+    }
+
+    var now = performance.now();
+    if (!shouldHandle(direction, now)) return;
+    e.preventDefault();
+    if (window.scrollY !== 0) window.scrollTo(0, 0);
+    if (now >= lockedUntil) selectSlide(currentIndex + direction);
+  });
+
+  dots.forEach(function (dot, i) {
+    dot.addEventListener("click", function () {
+      if (!mq.matches) return;
+      selectSlide(i);
+    });
+  });
 
   var backToTop = document.getElementById("back-to-top");
   if (backToTop) {
     backToTop.addEventListener("click", function () {
       if (!mq.matches) return;
       setActive(0);
-      canExitHero = true;
+      lockedUntil = 0;
+      wheelTotal = 0;
     });
+  }
+
+  function resetInput() {
+    lockedUntil = 0;
+    wheelTotal = 0;
+    lastWheelTime = 0;
+  }
+
+  if (mq.addEventListener) {
+    mq.addEventListener("change", resetInput);
+  } else if (mq.addListener) {
+    mq.addListener(resetInput);
   }
 })();

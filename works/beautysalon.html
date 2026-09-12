@@ -29,7 +29,6 @@
       <a href="../index.html#gallery">gallery</a>
     </nav>
 
-    <img class="header-dog" src="../assets/images/header-dog.webp" alt="">
     <button type="button" class="header-mascot-lp" id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="メニューを開く">
       <img src="../assets/images/header-mascot.webp" alt="">
     </button>
@@ -39,7 +38,7 @@
     <div class="project-info__row">
       <div class="project-field project-field--title">
         <p class="project-field__label">project</p>
-        <p class="project-field__value">美容師サイト</p>
+        <h1 class="project-field__value">美容師サイト</h1>
       </div>
 
       <div class="project-field project-field--bio">
@@ -64,10 +63,10 @@
     </div>
 
     <div class="project-links">
-      <div class="project-swatches" aria-hidden="true">
-        <span style="background:#6a2013;"></span>
-        <span style="background:#e37174;"></span>
-        <span style="background:#fffbfc;"></span>
+      <div class="project-swatches project-swatches--beautysalon" aria-hidden="true">
+        <span class="project-swatches__item"></span>
+        <span class="project-swatches__item"></span>
+        <span class="project-swatches__item"></span>
       </div>
     </div>
   </div>
@@ -123,9 +122,14 @@
   <span>Page Top</span>
 </button>
 
+<div class="custom-cursor" id="custom-cursor" aria-hidden="true">
+  <span class="custom-cursor__text">VIEW</span>
+</div>
+
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/page-top-theme.js"></script>
 <script src="../assets/js/header-clock.js"></script>
 <script src="../assets/js/mobile-menu.js"></script>
+<script src="../assets/js/custom-cursor.js"></script>
 </body>
 </html>

@@ -6,11 +6,11 @@
 
   var bgTarget = pin.closest(".feedback-section") || pin;
 
-  if (window.matchMedia("(max-width: 900px)").matches) return;
+  var mql = window.matchMedia("(max-width: 900px)");
 
-  var FADE_END = 0.55; 
+  var FADE_END = 0.55;
   var CROSSFADE_START = 0.4;
-  var CROSSFADE_END = 0.7; 
+  var CROSSFADE_END = 0.7;
   var ticking = false;
 
   function clamp(v, min, max) {
@@ -24,8 +24,19 @@
     pin.style.setProperty("--video-opacity", String(crossfade));
   }
 
+  function reset() {
+    pin.style.removeProperty("--wide-opacity");
+    pin.style.removeProperty("--video-opacity");
+    bgTarget.style.removeProperty("--chat-bg-progress");
+  }
+
   function update() {
     ticking = false;
+
+    if (mql.matches) {
+      reset();
+      return;
+    }
 
     var rect = pin.getBoundingClientRect();
     var revealPx = window.innerHeight;

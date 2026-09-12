@@ -132,7 +132,13 @@
     }
   };
 
-  var image = modal.querySelector(".photo-modal__image");
+  var photoList = Object.keys(photoData).map(function (key) {
+    return { key: key, src: "assets/images/gallery/" + key + ".webp" };
+  });
+
+  var mainImg = modal.querySelector(".photo-modal__image--main");
+  var prevBtn = modal.querySelector(".photo-modal__nav--prev");
+  var nextBtn = modal.querySelector(".photo-modal__nav--next");
   var panel = modal.querySelector(".photo-modal__panel");
   var titleEl = modal.querySelector(".photo-modal__title");
   var locationEl = modal.querySelector(".photo-modal__location");
@@ -143,14 +149,27 @@
   var addedInertSiblings = [];
   var previousBodyOverflow = "";
   var suppressFocusPause = false;
+  var currentIndex = 0;
+  var isAnimating = false;
+
+  var SLIDE_TRANSITION = "transform 0.32s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.32s ease";
 
   function fileKeyFromSrc(src) {
     var name = src.split("/").pop();
     return name.replace(/\.[a-zA-Z0-9]+$/, "");
   }
 
+  function altForKey(key) {
+    var data = photoData[key];
+    return (data && data.title) || "スナップ写真";
+  }
+
   function revealImage() {
-    image.classList.remove("is-loading");
+    pendingLoadHandler = null;
+    mainImg.classList.remove("is-loading");
+    mainImg.style.transition = SLIDE_TRANSITION;
+    mainImg.style.transform = "translateX(0)";
+    mainImg.style.opacity = "1";
   }
 
   function setField(el, textEl, value) {
@@ -216,46 +235,94 @@
     }
   }
 
+  function setSlideContent(index) {
+    var current = photoList[index];
+    var data = photoData[current.key] || {};
+
+    setField(titleEl, null, data.title);
+    setField(locationEl, locationTextEl, data.location);
+    setField(commentEl, null, data.comment);
+
+    mainImg.alt = altForKey(current.key);
+  }
+
   function openModal(button) {
     triggerButton = button.__realButton || button;
 
     var img = button.querySelector("img");
-    var newSrc = img.getAttribute("src");
-    var data = photoData[fileKeyFromSrc(newSrc)] || {};
+    var key = fileKeyFromSrc(img.getAttribute("src"));
+    var index = photoList.findIndex(function (p) {
+      return p.key === key;
+    });
+    currentIndex = index === -1 ? 0 : index;
 
-    function show() {
-      pendingLoadHandler = null;
-      setField(titleEl, null, data.title);
-      setField(locationEl, locationTextEl, data.location);
-      setField(commentEl, null, data.comment);
+    setSlideContent(currentIndex);
 
-      if (!modal.classList.contains("is-open")) {
-        previousBodyOverflow = document.body.style.overflow;
-      }
-
-      modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-      setBackgroundInert(true);
-      modal.querySelector(".photo-modal__close").focus();
-      revealImage();
+    if (!modal.classList.contains("is-open")) {
+      previousBodyOverflow = document.body.style.overflow;
     }
+
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    setBackgroundInert(true);
+    modal.querySelector(".photo-modal__close").focus();
 
     if (pendingLoadHandler) {
-      image.removeEventListener("load", pendingLoadHandler);
+      mainImg.removeEventListener("load", pendingLoadHandler);
       pendingLoadHandler = null;
     }
 
-    image.classList.add("is-loading");
-    image.src = newSrc;
-    image.alt = img.alt || "";
+    mainImg.style.transition = "none";
+    mainImg.style.transform = "translateX(0)";
+    mainImg.classList.add("is-loading");
+    mainImg.src = photoList[currentIndex].src;
 
-    if (image.complete && image.currentSrc) {
-      show();
+    if (mainImg.complete && mainImg.currentSrc) {
+      revealImage();
     } else {
-      pendingLoadHandler = show;
-      image.addEventListener("load", show, { once: true });
+      pendingLoadHandler = revealImage;
+      mainImg.addEventListener("load", revealImage, { once: true });
     }
+  }
+
+  function navigate(direction) {
+    if (!modal.classList.contains("is-open") || isAnimating) return;
+    var newIndex = (currentIndex + direction + photoList.length) % photoList.length;
+    animateSwap(newIndex, direction);
+  }
+
+  var SLIDE_STEP_MS = 320;
+  var swapTimeouts = [];
+
+  function animateSwap(newIndex, direction) {
+    isAnimating = true;
+    mainImg.style.transition = SLIDE_TRANSITION;
+    mainImg.style.transform = "translateX(" + direction * -46 + "px)";
+    mainImg.style.opacity = "0";
+
+    swapTimeouts.push(
+      window.setTimeout(function () {
+        currentIndex = newIndex;
+        setSlideContent(currentIndex);
+        mainImg.src = photoList[currentIndex].src;
+
+        mainImg.style.transition = "none";
+        mainImg.style.transform = "translateX(" + direction * 46 + "px)";
+        mainImg.style.opacity = "0";
+        void mainImg.offsetWidth;
+
+        mainImg.style.transition = SLIDE_TRANSITION;
+        mainImg.style.transform = "translateX(0)";
+        mainImg.style.opacity = "1";
+
+        swapTimeouts.push(
+          window.setTimeout(function () {
+            isAnimating = false;
+          }, SLIDE_STEP_MS)
+        );
+      }, SLIDE_STEP_MS)
+    );
   }
 
   function closeModal() {
@@ -263,6 +330,9 @@
     modal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = previousBodyOverflow;
     setBackgroundInert(false);
+    swapTimeouts.forEach(window.clearTimeout);
+    swapTimeouts = [];
+    isAnimating = false;
     if (triggerButton) {
       var triggerTrack = triggerButton.closest(".gallery-row__track");
       suppressFocusPause = true;
@@ -270,8 +340,11 @@
       suppressFocusPause = false;
       if (triggerTrack) {
         triggerTrack.classList.remove("is-focus-paused");
-        var triggerRow = triggerTrack.closest(".gallery-row");
-        if (triggerRow && triggerRow.scrollLeft !== 0) triggerRow.scrollLeft = 0;
+        // Reduced-motion tracks have no timeline anim; scrollLeft there is the real scroll position, not a stray offset to reset.
+        if (trackHasTimelineAnim(triggerTrack)) {
+          var triggerRow = triggerTrack.closest(".gallery-row");
+          if (triggerRow && triggerRow.scrollLeft !== 0) triggerRow.scrollLeft = 0;
+        }
       }
     }
   }
@@ -318,6 +391,7 @@
     track.addEventListener("focusin", function (e) {
       if (!e.target.classList.contains("gallery-photo-btn")) return;
       if (suppressFocusPause) return;
+      if (!e.target.matches(":focus-visible")) return;
       track.classList.add("is-focus-paused");
       bringIntoView(track, e.target);
     });
@@ -328,14 +402,22 @@
     });
   });
 
+  function trackTimelineAnim(track) {
+    var anim = typeof track.getAnimations === "function" ? track.getAnimations()[0] : null;
+    return anim && anim.effect && typeof anim.effect.getTiming === "function" ? anim : null;
+  }
+
+  function trackHasTimelineAnim(track) {
+    return !!trackTimelineAnim(track);
+  }
+
   function bringIntoView(track, button) {
     var row = track.closest(".gallery-row");
     if (!row) return;
 
-    var anim = typeof track.getAnimations === "function" ? track.getAnimations()[0] : null;
-    var hasTimelineAnim = !!(anim && anim.effect && typeof anim.effect.getTiming === "function");
+    var anim = trackTimelineAnim(track);
 
-    if (!hasTimelineAnim) {
+    if (!anim) {
       button.scrollIntoView({ block: "nearest", inline: "nearest" });
       return;
     }
@@ -375,6 +457,40 @@
     el.addEventListener("click", closeModal);
   });
 
+  prevBtn.addEventListener("click", function () {
+    navigate(-1);
+  });
+
+  nextBtn.addEventListener("click", function () {
+    navigate(1);
+  });
+
+  var touchStartX = null;
+
+  modal.querySelector(".photo-modal__stage").addEventListener(
+    "touchstart",
+    function (e) {
+      touchStartX = e.changedTouches[0].clientX;
+    },
+    { passive: true }
+  );
+
+  modal.querySelector(".photo-modal__stage").addEventListener(
+    "touchend",
+    function (e) {
+      if (touchStartX === null) return;
+      var deltaX = e.changedTouches[0].clientX - touchStartX;
+      touchStartX = null;
+      var threshold = 40;
+      if (deltaX > threshold) {
+        navigate(-1);
+      } else if (deltaX < -threshold) {
+        navigate(1);
+      }
+    },
+    { passive: true }
+  );
+
   document.addEventListener("keydown", function (e) {
     if (!modal.classList.contains("is-open")) return;
 
@@ -382,6 +498,10 @@
       closeModal();
     } else if (e.key === "Tab") {
       trapFocus(e);
+    } else if (e.key === "ArrowLeft") {
+      navigate(-1);
+    } else if (e.key === "ArrowRight") {
+      navigate(1);
     }
   });
 })();
