@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FUTABA OMI | Portfolio</title>
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
+<script>
+  (function () {
+    var hash = location.hash;
+    if (!hash || hash === "#") return;
+
+    document.documentElement.style.visibility = "hidden";
+
+    document.addEventListener("DOMContentLoaded", function () {
+      try {
+        var id = hash.slice(1);
+        try {
+          id = decodeURIComponent(id);
+        } catch (decodeError) {
+        }
+
+        var target = id ? document.getElementById(id) : null;
+        if (target) {
+          target.scrollIntoView({ block: "start" });
+        }
+      } catch (error) {
+      } finally {
+        document.documentElement.style.visibility = "";
+      }
+    });
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/emb3ppv.css">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<section class="hero" id="hero" aria-label="メインビジュアル" data-header-theme="dark">
+
+  <div class="hero__slides">
+    <div class="hero__slide is-active" data-slide="1" style="background-image:url('assets/images/hero-bg-crop1.webp');"></div>
+    <div class="hero__slide" data-slide="2" style="background-image:url('assets/images/hero-bg-crop3.webp');"></div>
+    <div class="hero__slide" data-slide="3" style="background-image:url('assets/images/hero-bg-crop.webp');"></div>
+  </div>
+
+  <div class="hero__mobile-bg" aria-hidden="true"></div>
+
+  <header class="hero__nav">
+    <div class="header-topbar">
+      <a class="header-profile" href="index.html">
+        <p class="header-profile__name">FUTABA OMI</p>
+        <p class="header-profile__desc">Design / Development / Photography &amp; The Solution</p>
+      </a>
+
+      <p class="header-timestamp">2026/08/10 6:54 (am) - Sat</p>
+
+      <nav class="main-nav" aria-label="サイト内ナビゲーション">
+        <a href="#about">About</a>
+        <a href="#works">Works</a>
+        <a href="#gallery">gallery</a>
+      </nav>
+
+      <img class="header-dog" src="assets/images/header-dog.webp" alt="">
+    </div>
+
+    <button type="button" class="hero__mobile-menu" id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="メニューを開く">
+      <img class="hero__mobile-menu-bubble" src="assets/images/menu.webp" alt="">
+      <img class="hero__mobile-menu-dog" src="assets/images/header-dog.webp" alt="">
+    </button>
+  </header>
+
+  <div class="hero__content">
+    <p class="hero__tagline"><span class="hero__tagline-line">Design&nbsp;/&nbsp;Development&nbsp;/&nbsp;Photography</span><span class="hero__tagline-sep">&nbsp;&nbsp;&nbsp;</span><span class="hero__tagline-line">and</span><span class="hero__tagline-sep">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="hero__tagline-line">The&nbsp;Solution</span></p>
+    <h1 class="hero__name"><span class="hero__name-line">FUTABA</span><span class="hero__name-sep">&nbsp;</span><span class="hero__name-line">OMI</span></h1>
+  </div>
+
+  <ol class="hero__pagination" aria-label="スライド切り替え">
+    <li>
+      <button type="button" class="hero__dot is-active" data-slide-target="1" aria-current="true">
+        <img src="assets/icons/pagination-1.svg" alt="1" width="30" height="30">
+      </button>
+    </li>
+    <li>
+      <button type="button" class="hero__dot" data-slide-target="2">
+        <img src="assets/icons/pagination-2.svg" alt="2" width="30" height="30">
+      </button>
+    </li>
+    <li>
+      <button type="button" class="hero__dot" data-slide-target="3">
+        <img src="assets/icons/pagination-3.svg" alt="3" width="30" height="30">
+      </button>
+    </li>
+  </ol>
+
+  <div class="hero__scroll">
+    <span class="hero__scroll-text">Scroll</span>
+    <span class="hero__scroll-line" aria-hidden="true"></span>
+  </div>
+
+</section>
+
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu__frame">
+    <div class="mobile-menu__topbar">
+      <a class="header-profile" href="index.html">
+        <p class="header-profile__name">FUTABA OMI</p>
+        <p class="header-profile__desc">Design / Development / Photography &amp; The Solution</p>
+      </a>
+      <button type="button" class="header-mascot-lp mobile-menu__close" data-menu-close aria-label="メニューを閉じる">
+        <img src="assets/images/header-close.webp" alt="">
+      </button>
+    </div>
+
+    <nav class="mobile-menu__nav" aria-label="サイト内ナビゲーション">
+      <a class="mobile-menu__item mobile-menu__item--about" href="#about" data-menu-close>
+        <span class="mobile-menu__item-en">about</span>
+        <span class="mobile-menu__item-ja">わたしについて</span>
+      </a>
+      <a class="mobile-menu__item mobile-menu__item--work" href="#works" data-menu-close>
+        <span class="mobile-menu__item-en">work</span>
+        <span class="mobile-menu__item-ja">制作実績</span>
+      </a>
+      <a class="mobile-menu__item mobile-menu__item--gallery" href="#gallery" data-menu-close>
+        <span class="mobile-menu__item-en">gallery</span>
+        <span class="mobile-menu__item-ja">作品集</span>
+      </a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+  <section id="about" class="about-section" data-header-theme="dark">
+    <picture>
+      <source media="(min-width: 721px)" srcset="assets/images/about-widecloud.webp">
+      <img class="about-cloud" src="assets/images/about-cloud.webp" alt="">
+    </picture>
+    <div class="about-inner">
+      <div class="about-header">
+        <h2 class="about-title">about</h2>
+        <p class="about-subtitle">わたしについて</p>
+      </div>
+
+      <div class="profile-block">
+        <img class="profile-photo" src="assets/images/about-profile.webp" alt="双葉さんのプロフィール写真">
+        <div class="profile-info">
+          <p>1999年生まれ 新潟県出身</p>
+          <p>
+            写真やドライブ、ものづくりが好きで、<br>
+            好きなことにはとことん夢中になります。<br>
+            新しいことに挑戦しながら、自分の「好き」を少しずつ増やしています。
+          </p>
+          <div class="social-links">
+            <a href="https://github.com/futaba416"><img src="assets/icons/github.svg" alt="GitHub"></a>
+            <a href="https://www.wantedly.com/id/futaba_omi"><img src="assets/icons/wantedly.svg" alt="Wantedly"></a>
+            <a href="mailto:futaba4161999@gmail.com"><img src="assets/icons/mail.svg" alt="Mail"></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-thread">
+        <div class="chat-row">
+          <div class="chat-person">
+            <img src="assets/images/avatar-futaba.webp" alt="">
+            <span>ふたば</span>
+          </div>
+          <p class="chat-bubble">はじめまして！双葉です！</p>
+        </div>
+
+        <div class="chat-row chat-row--right">
+          <p class="chat-bubble chat-bubble--right">なにをしている人なの？</p>
+          <div class="chat-person chat-person--mascot">
+            <img src="assets/images/mascot-komemaru.webp" alt="" width="1281" height="743">
+            <span>おこめ</span>
+          </div>
+        </div>
+
+        <div class="chat-row">
+          <div class="chat-person">
+            <img src="assets/images/avatar-futaba.webp" alt="">
+            <span>ふたば</span>
+          </div>
+          <p class="chat-bubble">コードを書いたり、デザインしたり、<br>ときめきを形にするのが好きな、ものづくりが好きな人だよ</p>
+        </div>
+
+        <div class="chat-row chat-row--right">
+          <p class="chat-bubble chat-bubble--right">実際に、なにを作るの？</p>
+          <div class="chat-person chat-person--mascot">
+            <img src="assets/images/mascot-komemaru.webp" alt="" width="1281" height="743">
+            <span>おこめ</span>
+          </div>
+        </div>
+
+        <div class="chat-row">
+          <div class="chat-person">
+            <img src="assets/images/avatar-futaba.webp" alt="">
+            <span>ふたば</span>
+          </div>
+          <p class="chat-bubble">Webサイトやアプリ・LPやバナー制作<br>革のお財布・アクセサリーを作ったり、写真を撮るのもすきだよ</p>
+        </div>
+
+        <div class="chat-row chat-row--right">
+          <p class="chat-bubble chat-bubble--right">全然違うもの作ってるんだね！</p>
+          <div class="chat-person chat-person--mascot">
+            <img src="assets/images/mascot-komemaru.webp" alt="" width="1281" height="743">
+            <span>おこめ</span>
+          </div>
+        </div>
+
+        <div class="chat-row">
+          <div class="chat-person">
+            <img src="assets/images/avatar-futaba.webp" alt="">
+            <span>ふたば</span>
+          </div>
+          <p class="chat-bubble">素材は違っても、考えて、手を動かして、少しずつ形にしていくことは同じなんだ〜</p>
+        </div>
+
+        <div class="chat-row chat-row--right">
+          <p class="chat-bubble chat-bubble--right">コードを書くのも、デザインをするのもすき？</p>
+          <div class="chat-person chat-person--mascot">
+            <img src="assets/images/mascot-komemaru.webp" alt="" width="1281" height="743">
+            <span>おこめ</span>
+          </div>
+        </div>
+
+        <div class="chat-row">
+          <div class="chat-person">
+            <img src="assets/images/avatar-futaba.webp" alt="">
+            <span>ふたば</span>
+          </div>
+          <p class="chat-bubble">うん！機能ができた瞬間も見た目がしっくりきた瞬間も楽しい！！</p>
+        </div>
+
+        <div class="chat-row chat-row--right">
+          <p class="chat-bubble chat-bubble--right">ものづくりの、どんなところが好きなの？</p>
+          <div class="chat-person chat-person--mascot">
+            <img src="assets/images/mascot-komemaru.webp" alt="" width="1281" height="743">
+            <span>おこめ</span>
+          </div>
+        </div>
+
+        <div class="chat-row">
+          <div class="chat-person">
+            <img src="assets/images/avatar-futaba.webp" alt="">
+            <span>ふたば</span>
+          </div>
+          <p class="chat-bubble">頭の中にあったときめきが、少しづつ形になっていくところ<br>チームで意見を出し合って、自分だけでは思いつかなかった形になるのも面白い！！</p>
+        </div>
+
+        <div class="chat-row chat-row--right">
+          <p class="chat-bubble chat-bubble--right">なんだか、どんなものを作ってきたのか気になってきた！</p>
+          <div class="chat-person chat-person--mascot">
+            <img src="assets/images/mascot-komemaru.webp" alt="" width="1281" height="743">
+            <span>おこめ</span>
+          </div>
+        </div>
+
+        <div class="chat-row">
+          <div class="chat-person">
+            <img src="assets/images/avatar-futaba.webp" alt="">
+            <span>ふたば</span>
+          </div>
+          <p class="chat-bubble">じゃあ、今まで作ってきたもの、見てみる？</p>
+        </div>
+      </div>
+
+      <div id="works" class="section-heading">
+        <h2 class="section-heading__title">work</h2>
+        <p class="section-heading__subtitle">制作実績</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="works-section" data-header-theme="sky" data-pagetop-theme="light">
+    <div class="works-pin" style="--works-count: 4;">
+      <div class="works-pin__sticky">
+    <a class="work-card" href="works/ikuratsukatta.html">
+      <picture>
+        <source media="(max-width: 640px)" srcset="assets/images/ikuratukatta/login.webp">
+        <img class="work-card__thumb" src="assets/images/ikuratukatta/thumbnail.webp" alt="いくらつかった？シンプル家計簿">
+      </picture>
+      <div class="work-card__info">
+        <div class="work-card__divider"></div>
+        <span class="work-card__date">2026/1/4-2026/2/28</span>
+        <h3 class="work-card__title">いくらつかった？シンプル家計簿</h3>
+        <p class="work-card__eyebrow">Hackathon（3）</p>
+
+        <div class="work-card__skills">
+          <div class="skill-group">
+            <p class="skill-group__label">UI/UX DESIGN</p>
+            <div class="skill-group__icons"><img src="assets/icons/figma.svg" alt="Figma"></div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group__label">FRONT-END DEVELOPMENT</p>
+            <div class="skill-group__icons">
+              <img src="assets/icons/html.svg" alt="HTML">
+              <img src="assets/icons/css.svg" alt="CSS">
+              <img src="assets/icons/js.svg" alt="JavaScript">
+              <img src="assets/icons/tailwind.svg" alt="Tailwind CSS">
+              <img src="assets/icons/daisyui.svg" alt="daisyUI">
+            </div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group__label">BACK-END DEVELOPMENT</p>
+            <div class="skill-group__icons">
+              <img src="assets/icons/django.svg" alt="Django">
+              <img src="assets/icons/mysql.svg" alt="MySQL">
+            </div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group__label">PROJECT MANAGEMENT</p>
+            <div class="skill-group__icons">
+              <img src="assets/icons/git.svg" alt="Git">
+              <img src="assets/icons/github.svg" alt="GitHub">
+              <img src="assets/icons/notion.svg" alt="Notion">
+              <img src="assets/icons/drawio.svg" alt="draw.io">
+              <img src="assets/icons/canva.svg" alt="Canva">
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card__divider"></div>
+      </div>
+    </a>
+
+    <a class="work-card" href="works/habi.html" data-pagetop-theme="dark">
+      <picture>
+        <source media="(max-width: 640px)" srcset="assets/images/habi/login.webp">
+        <img class="work-card__thumb" src="assets/images/habi/thumbnail.webp" alt="Habi〜人生目標達成アプリ〜">
+      </picture>
+      <div class="work-card__info">
+        <div class="work-card__divider"></div>
+        <span class="work-card__date">2025/10/4-2025/11/29</span>
+        <h3 class="work-card__title">Habi〜人生目標達成アプリ〜</h3>
+        <p class="work-card__eyebrow">Hackathon（2）</p>
+
+        <div class="work-card__skills">
+          <div class="skill-group">
+            <p class="skill-group__label">UI/UX DESIGN</p>
+            <div class="skill-group__icons"><img src="assets/icons/figma.svg" alt="Figma"></div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group__label">FRONT-END DEVELOPMENT</p>
+            <div class="skill-group__icons">
+              <img src="assets/icons/html.svg" alt="HTML">
+              <img src="assets/icons/css.svg" alt="CSS">
+              <img src="assets/icons/js.svg" alt="JavaScript">
+              <img src="assets/icons/bootstrap.svg" alt="Bootstrap">
+            </div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group__label">BACK-END DEVELOPMENT</p>
+            <div class="skill-group__icons">
+              <img src="assets/icons/django.svg" alt="Django">
+              <img src="assets/icons/mysql.svg" alt="MySQL">
+            </div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group__label">PROJECT MANAGEMENT</p>
+            <div class="skill-group__icons">
+              <img src="assets/icons/git.svg" alt="Git">
+              <img src="assets/icons/github.svg" alt="GitHub">
+              <img src="assets/icons/notion.svg" alt="Notion">
+              <img src="assets/icons/drawio.svg" alt="draw.io">
+              <img src="assets/icons/canva.svg" alt="Canva">
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card__divider"></div>
+      </div>
+    </a>
+
+    <a class="work-card" href="works/codroe.html">
+      <picture>
+        <source media="(max-width: 640px)" srcset="assets/images/codroe/login.webp">
+        <img class="work-card__thumb" src="assets/images/codroe/thumbnail.webp" alt="めんたいチャット CodRoe">
+      </picture>
+      <div class="work-card__info">
+        <div class="work-card__divider"></div>
+        <span class="work-card__date">2025/7/5-2025/8/30</span>
+        <h3 class="work-card__title">めんたいチャット CodRoe</h3>
+        <p class="work-card__eyebrow">Hackathon（1）</p>
+
+        <div class="work-card__skills">
+          <div class="skill-group">
+            <p class="skill-group__label">UI/UX DESIGN</p>
+            <div class="skill-group__icons"><img src="assets/icons/figma.svg" alt="Figma"></div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group__label">FRONT-END DEVELOPMENT</p>
+            <div class="skill-group__icons">
+              <img src="assets/icons/html.svg" alt="HTML">
+              <img src="assets/icons/css.svg" alt="CSS">
+              <img src="assets/icons/js.svg" alt="JavaScript">
+            </div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group__label">BACK-END DEVELOPMENT</p>
+            <div class="skill-group__icons">
+              <img src="assets/icons/mysql.svg" alt="MySQL">
+              <img src="assets/icons/python.svg" alt="Python">
+            </div>
+          </div>
+          <div class="skill-group">
+            <p class="skill-group__label">PROJECT MANAGEMENT</p>
+            <div class="skill-group__icons">
+              <img src="assets/icons/git.svg" alt="Git">
+              <img src="assets/icons/github.svg" alt="GitHub">
+              <img src="assets/icons/notion.svg" alt="Notion">
+              <img src="assets/icons/drawio.svg" alt="draw.io">
+              <img src="assets/icons/canva.svg" alt="Canva">
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card__divider"></div>
+      </div>
+    </a>
+
+    <a class="work-card work-card--beautysalon" href="works/beautysalon.html">
+      <picture>
+        <source media="(max-width: 640px)" srcset="assets/images/beautysalon/full.webp">
+        <img class="work-card__thumb" src="assets/images/beautysalon/thumbnail.webp" alt="美容室サイト LIFE">
+      </picture>
+      <div class="work-card__info">
+        <div class="work-card__divider"></div>
+        <span class="work-card__date">2026</span>
+        <h3 class="work-card__title">美容室サイト</h3>
+        <p class="work-card__eyebrow">Landing Page</p>
+
+        <div class="work-card__skills">
+          <div class="skill-group">
+            <p class="skill-group__label">WEB DESIGN</p>
+            <div class="skill-group__icons">
+              <img src="assets/icons/figma.svg" alt="Figma">
+              <img src="assets/icons/photoshop.svg" alt="Photoshop">
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card__divider"></div>
+      </div>
+    </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="home-lower" data-header-theme="light">
+
+  <section class="banner-section" aria-label="バナー制作実績">
+    <div class="banner-marquee">
+      <div class="banner-marquee__track">
+        <img src="assets/images/banner/ice1.webp" alt="アイスクリームバナー1">
+        <img src="assets/images/banner/ice2.webp" alt="アイスクリームバナー2">
+        <img src="assets/images/banner/burger_pop1.webp" alt="バーガーバナー1">
+        <img src="assets/images/banner/burger_pop2.webp" alt="バーガーバナー2">
+        <img src="assets/images/banner/burger_rich1.webp" alt="バーガーバナー3">
+        <img src="assets/images/banner/burger_rich2.webp" alt="バーガーバナー4">
+
+        <img src="assets/images/banner/ice1.webp" alt="" aria-hidden="true">
+        <img src="assets/images/banner/ice2.webp" alt="" aria-hidden="true">
+        <img src="assets/images/banner/burger_pop1.webp" alt="" aria-hidden="true">
+        <img src="assets/images/banner/burger_pop2.webp" alt="" aria-hidden="true">
+        <img src="assets/images/banner/burger_rich1.webp" alt="" aria-hidden="true">
+        <img src="assets/images/banner/burger_rich2.webp" alt="" aria-hidden="true">
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-section" id="gallery" aria-label="ギャラリー">
+    <div class="section-heading">
+      <h2 class="section-heading__title">gallery</h2>
+      <p class="section-heading__subtitle">作品集</p>
+    </div>
+
+    <div class="gallery-row" data-header-theme="dark">
+      <div class="gallery-row__track">
+        <img src="assets/images/gallery/DSCF2930.webp" width="326" height="490" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF0092.webp" width="384" height="256" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF1229.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF0665.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9654.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF2938.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8620.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9318.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8414.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9327.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/IMG_1093.webp" width="105" height="157" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8853.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9320.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9951.webp" width="384" height="256" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8324.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/IMG_1095.webp" width="105" height="157" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9897.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8397.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF3229.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF7637.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/IMG_1917.webp" width="157" height="105" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8316.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF7685.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF0042.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF3027.webp" width="333" height="500" alt="スナップ写真">
+
+        <img src="assets/images/gallery/DSCF2930.webp" width="326" height="490" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF0092.webp" width="384" height="256" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF1229.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF0665.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9654.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF2938.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8620.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9318.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8414.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9327.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/IMG_1093.webp" width="105" height="157" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8853.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9320.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9951.webp" width="384" height="256" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8324.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/IMG_1095.webp" width="105" height="157" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9897.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8397.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF3229.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF7637.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/IMG_1917.webp" width="157" height="105" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8316.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF7685.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF0042.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF3027.webp" width="333" height="500" alt="" aria-hidden="true">
+      </div>
+    </div>
+
+    <div class="gallery-row" data-header-theme="dark">
+      <div class="gallery-row__track">
+        <img src="assets/images/gallery/DSCF8414.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9327.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/IMG_1093.webp" width="105" height="157" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8853.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9320.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9951.webp" width="384" height="256" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8324.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/IMG_1095.webp" width="105" height="157" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9897.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8397.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF3229.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF7637.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/IMG_1917.webp" width="157" height="105" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8316.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF7685.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF0042.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF3027.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF2930.webp" width="326" height="490" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF0092.webp" width="384" height="256" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF1229.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF0665.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9654.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF2938.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8620.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9318.webp" width="333" height="500" alt="スナップ写真">
+
+        <img src="assets/images/gallery/DSCF8414.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9327.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/IMG_1093.webp" width="105" height="157" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8853.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9320.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9951.webp" width="384" height="256" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8324.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/IMG_1095.webp" width="105" height="157" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9897.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8397.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF3229.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF7637.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/IMG_1917.webp" width="157" height="105" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8316.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF7685.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF0042.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF3027.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF2930.webp" width="326" height="490" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF0092.webp" width="384" height="256" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF1229.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF0665.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9654.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF2938.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8620.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9318.webp" width="333" height="500" alt="" aria-hidden="true">
+      </div>
+    </div>
+
+    <div class="gallery-row" data-header-theme="dark">
+      <div class="gallery-row__track">
+        <img src="assets/images/gallery/DSCF8397.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF3229.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF7637.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/IMG_1917.webp" width="157" height="105" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8316.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF7685.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF0042.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF3027.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF2930.webp" width="326" height="490" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF0092.webp" width="384" height="256" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF1229.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF0665.webp" width="500" height="333" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9654.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF2938.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8620.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9318.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8414.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9327.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/IMG_1093.webp" width="105" height="157" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8853.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9320.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9951.webp" width="384" height="256" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF8324.webp" width="333" height="500" alt="スナップ写真">
+        <img src="assets/images/gallery/IMG_1095.webp" width="105" height="157" alt="スナップ写真">
+        <img src="assets/images/gallery/DSCF9897.webp" width="500" height="333" alt="スナップ写真">
+
+        <img src="assets/images/gallery/DSCF8397.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF3229.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF7637.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/IMG_1917.webp" width="157" height="105" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8316.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF7685.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF0042.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF3027.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF2930.webp" width="326" height="490" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF0092.webp" width="384" height="256" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF1229.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF0665.webp" width="500" height="333" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9654.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF2938.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8620.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9318.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8414.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9327.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/IMG_1093.webp" width="105" height="157" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8853.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9320.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9951.webp" width="384" height="256" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF8324.webp" width="333" height="500" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/IMG_1095.webp" width="105" height="157" alt="" aria-hidden="true">
+        <img src="assets/images/gallery/DSCF9897.webp" width="500" height="333" alt="" aria-hidden="true">
+      </div>
+    </div>
+
+  </section>
+
+
+
+
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p class="footer-copyright">©︎2026 Futaba Omi</p>
+    </div>
+  </footer>
+
+  </div>
+</main>
+
+<button type="button" id="back-to-top" class="back-to-top footer-links__item" aria-label="ページの先頭へ戻る">
+  <img src="assets/images/footer-mascot-1.webp" alt="">
+  <span>Page Top</span>
+</button>
+
+<div class="photo-modal" id="photo-modal" aria-hidden="true">
+  <div class="photo-modal__backdrop" data-modal-close></div>
+  <div class="photo-modal__panel" role="dialog" aria-modal="true" aria-label="写真の詳細">
+    <button type="button" class="photo-modal__close" data-modal-close aria-label="閉じる">
+      <img src="assets/icons/modal-close.svg" alt="">
+    </button>
+    <img class="photo-modal__image" src="" alt="">
+    <div class="photo-modal__details">
+      <p class="photo-modal__title" hidden></p>
+      <p class="photo-modal__location" hidden>
+        <img class="photo-modal__pin" src="assets/icons/location-pin.svg" alt="">
+        <span class="photo-modal__location-text"></span>
+      </p>
+      <p class="photo-modal__comment" hidden></p>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/hero-slideshow.js"></script>
+<script src="assets/js/page-top-theme.js"></script>
+<script src="assets/js/header-clock.js"></script>
+<script src="assets/js/header-scroll.js"></script>
+<script src="assets/js/chat-reveal.js"></script>
+<script src="assets/js/works-pin.js"></script>
+<script src="assets/js/gallery-modal.js"></script>
+<script src="assets/js/mobile-menu.js"></script>
+</body>
+</html>
