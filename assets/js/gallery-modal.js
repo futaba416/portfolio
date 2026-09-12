@@ -142,6 +142,7 @@
   var pendingLoadHandler = null;
   var addedInertSiblings = [];
   var previousBodyOverflow = "";
+  var suppressFocusPause = false;
 
   function fileKeyFromSrc(src) {
     var name = src.split("/").pop();
@@ -262,7 +263,17 @@
     modal.setAttribute("aria-hidden", "true");
     document.body.style.overflow = previousBodyOverflow;
     setBackgroundInert(false);
-    if (triggerButton) triggerButton.focus();
+    if (triggerButton) {
+      var triggerTrack = triggerButton.closest(".gallery-row__track");
+      suppressFocusPause = true;
+      triggerButton.focus();
+      suppressFocusPause = false;
+      if (triggerTrack) {
+        triggerTrack.classList.remove("is-focus-paused");
+        var triggerRow = triggerTrack.closest(".gallery-row");
+        if (triggerRow && triggerRow.scrollLeft !== 0) triggerRow.scrollLeft = 0;
+      }
+    }
   }
 
   document.querySelectorAll(".gallery-row__track").forEach(function (track) {
@@ -306,6 +317,7 @@
   document.querySelectorAll(".gallery-row__track").forEach(function (track) {
     track.addEventListener("focusin", function (e) {
       if (!e.target.classList.contains("gallery-photo-btn")) return;
+      if (suppressFocusPause) return;
       track.classList.add("is-focus-paused");
       bringIntoView(track, e.target);
     });

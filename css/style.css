@@ -769,6 +769,10 @@ body {
   height: 36px;
 }
 
+.project-social__link img {
+  pointer-events: none;
+}
+
 .project-social__logo {
   height: 20px;
   width: auto;
@@ -1721,6 +1725,12 @@ body {
 
 .back-to-top--theme-dark span {
   color: #fff;
+}
+
+@media (min-width: 641px) {
+  .back-to-top img {
+    width: clamp(90px, 8vw, 125px);
+  }
 }
 
 @media (max-width: 640px) {
