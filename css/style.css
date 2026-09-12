@@ -1514,7 +1514,6 @@ body {
 
   .work-card--beautysalon .work-card__thumb {
     object-position: top;
-    filter: blur(3px);
     transform: scale(1.05);
   }
 }
