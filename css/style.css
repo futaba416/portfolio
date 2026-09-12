@@ -15,6 +15,10 @@
 /* ==========================================================================
    Base
    ========================================================================== */
+html {
+  background: var(--color-white);
+}
+
 body {
   font-family: var(--font-jp);
   color: var(--color-text-dark);
@@ -568,7 +572,9 @@ body {
 
   .mobile-menu__frame {
     position: relative;
-    width: min(100%, calc(100dvh * 804 / 1748));
+    width: 100%;
+    max-height: 100vh;
+    max-height: 100dvh;
     aspect-ratio: 804 / 1748;
     margin: 0 auto;
     background-image: url("../assets/images/lp_menu.webp");
@@ -602,7 +608,7 @@ body {
     position: absolute;
     top: calc(env(safe-area-inset-top) + 5.8%);
     right: 3%;
-    width: 31.5%;
+    width: 27%;
     z-index: 10; 
     border: 0;
     background: none;
