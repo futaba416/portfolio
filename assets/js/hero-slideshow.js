@@ -8,7 +8,7 @@
   var dots = Array.prototype.slice.call(hero.querySelectorAll(".hero__dot"));
   if (slides.length < 2) return;
 
-  var mq = window.matchMedia("(min-width: 641px)");
+  var mq = window.matchMedia("(min-width: 768px)");
   var LOCK_MS = 700;
   var WHEEL_THRESHOLD = 60;
   var TOP_TOLERANCE = 2;

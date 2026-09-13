@@ -8,7 +8,7 @@
   var rightColumn = showcase.querySelector(".feedback-column--offset");
   if (!leftColumn || !rightColumn) return;
 
-  var mq = window.matchMedia("(max-width: 900px)");
+  var mq = window.matchMedia("(max-width: 1100px)");
 
   var STEP_VH_RATIO = 0.48;
   var MIN_GAP_PX = 24; 

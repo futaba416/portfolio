@@ -42,7 +42,7 @@
     }
   });
 
-  var pcBreakpoint = window.matchMedia("(min-width: 641px)");
+  var pcBreakpoint = window.matchMedia("(min-width: 768px)");
 
   function handleBreakpointChange(e) {
     if (e.matches && menu.classList.contains("is-open")) {
